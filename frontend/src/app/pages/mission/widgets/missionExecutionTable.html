@@ -1,0 +1,27 @@
+<table class="table table-bordered" st-safe-src="executions" st-table="displayed">
+  <thead>
+    <tr>
+      <td></td>
+      <td>{{'ID'|translate}}</td>
+      <td>{{'Status'|translate}}</td>
+      <td>{{'Start Time'|translate}}</td>
+      <td>{{'End Time'|translate}}</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="execution in displayed">
+      <td>{{$index}}</td>
+      <td><a ui-sref="dashboard.result({'execution': execution.id})">{{ execution.id }}</a></td>
+      <td><button class="status-button btn btn-xs btn-info">{{ execution.status|translate }}</button></td>
+      <td>{{ execution.start | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+      <td>{{ execution.end | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="5" class="text-center">
+        <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="smartDisplayedPage" st-template="app/pages/mission/widgets/pagination.html"></div>
+      </td>
+    </tr>
+  </tfoot>
+</table>

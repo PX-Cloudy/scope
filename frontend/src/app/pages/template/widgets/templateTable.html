@@ -1,0 +1,61 @@
+<div class="add-row-editable-table" ng-controller="TypesAndThemeCtrl as vm">
+  <button class="btn btn-primary" data-toggle="modal" ng-click="openAdd('app/pages/template/widgets/addTemplateModal.html', 'lg')">
+    {{"Add Template"|translate}}
+  </button>
+  <div class="col-sm-2" style="float:right">
+    <ui-select ng-model="vm.themeSelected" title="Choose a Theme" on-select="themeOnSelect($item, $model)">
+      <ui-select-match placeholder="{{'Select Theme'|translate}}">
+        {{$select.selected.label|translate}}
+      </ui-select-match>
+      <ui-select-choices repeat="item in templateThemes | filter: $select.search">
+        <div ng-bind-html="item.label | translate| highlight: $select.search"></div>
+      </ui-select-choices>
+    </ui-select>
+  </div> 
+  <div class="col-sm-2" style="float:right">
+    <ui-select ng-model="vm.typeSelected" title="Choose a Type" on-select="typeOnSelect($item, $model)">
+      <ui-select-match placeholder="{{'Select Type'|translate}}">
+        {{$select.selected.label|translate}}
+      </ui-select-match>
+      <ui-select-choices repeat="item in templateTypes | filter: $select.search">
+        <div ng-bind-html="item.label | translate| highlight: $select.search"></div>
+      </ui-select-choices>
+    </ui-select>
+  </div> 
+</div>
+<table class="table table-bordered" st-safe-src="templates" st-table="displayed">
+  <thead>
+    <tr>
+      <td></td>
+      <td>{{'ID'|translate}}</td>
+      <td>{{'Name'|translate}}</td>
+      <td>{{'Theme'|translate}}</td>
+      <td>{{'Custom Mark'|translate}}</td>
+      <td>{{'Type'|translate}}</td>
+      <td>{{'Operations'|translate}}</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="template in displayed">
+      <td>{{$index}}</td>
+      <td>{{ template.id }}</td>
+      <td>{{ template.name }}</td>
+      <td>{{ template.themename|translate }}</td>
+      <td>{{ template.custom_mark|translate }}</td>
+      <td>{{ template.template_type|translate }}</td>
+      <td>
+        <div class="buttons">
+            <button class="btn btn-primary editable-table-button btn-xs" data-toggle="modal" ng-click="openEdit('app/pages/template/widgets/editTemplateModal.html', 'lg', template)">{{'Edit'|translate}}</button>
+            <button class="btn btn-primary editable-table-button btn-xs" data-toggle="modal" ng-click="openEdit('app/pages/template/widgets/detailTemplateModal.html', 'lg', template)">{{'Detail'|translate}}</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="7" class="text-center">
+        <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="smartDisplayedPage" st-template="app/pages/template/widgets/pagination.html"></div>
+      </td>
+    </tr>
+  </tfoot>
+</table>

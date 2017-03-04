@@ -1,0 +1,156 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <em class="ion-ios-close-empty sn-link-close"></em>
+    </button>
+    <h4 class="modal-title" id="addModalLabel">{{'Add Template'|translate}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="widgets">
+      <div class="row">
+        <div class="col-md-12">
+          <ba-wizard>
+          <ba-wizard-step title="{{'Basic info'|translate}}" form="vm.basicInfoForm">
+              <form name="vm.basicInfoForm" novalidate>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error': vm.basicInfoForm.templateName.$invalid && (vm.basicInfoForm.templateName.$dirty || vm.basicInfoForm.$submitted)}">
+                         <label for="templateName">{{'Template Name'|translate}}</label>
+                      <input type="text" class="form-control error-input" id="templateName" name="templateName"
+                      placeholder="{{'Template Name'|translate}}" ng-model="vm.templateName" maxlength="30" required>
+                      <span class="help-block error-block basic-block">{{'Required'|translate}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error': vm.basicInfoForm.game.$invalid && (vm.basicInfoForm.game.$dirty || vm.basicInfoForm.game.$submitted)}">
+                      <label for="game">{{'Game Name'|translate}}</label>
+                      <ui-select ng-model="vm.gameSelected" title="Choose a Game" name="game" ng-required="true" on-select="gameOnSelect($item, $model)">
+                      <ui-select-match placeholder="{{'Select Game'|translate}}">{{$select.selected.label}}</ui-select-match>
+                        <ui-select-choices repeat="item in vm.games | filter: $select.search">
+                          <div ng-bind-html="item.label| highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group has-feedback">
+                      <label for="platform">{{'Platform Name'|translate}}</label>
+                      <ui-select ng-model="vm.platformSelected" title="Choose a Platform" name="platform" ng-required="true" on-select="platformOnSelect($item, $model)">
+                      <ui-select-match placeholder="{{'Select Platform'|translate}}">{{$select.selected.label}}</ui-select-match>
+                        <ui-select-choices repeat="item in vm.platforms | filter: $select.search">
+                          <div ng-bind-html="item.label | highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group has-feedback">
+                      <label for="platform">{{'Version Name'|translate}}</label>
+                      <ui-select ng-model="vm.versionSelected" title="Choose a Version" name="version" ng-required="true" on-select="versionOnSelect($item, $model)">
+                      <ui-select-match placeholder="{{'Select Version'|translate}}">{{$select.selected.label}}</ui-select-match>
+                        <ui-select-choices repeat="item in vm.versions | filter: $select.search">
+                          <div ng-bind-html="item.label | highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error': vm.basicInfoForm.theme.$invalid && (vm.basicInfoForm.theme.$dirty || vm.basicInfoForm.theme.$submitted)}">
+                      <label for="theme">{{'Template Theme'|translate}}</label>
+                      <ui-select ng-model="vm.themeSelected" title="Choose a Theme" name="theme" ng-required="true" on-select="themeOnSelect($item, $model)">
+                      <ui-select-match placeholder="{{'Select Theme'|translate}}">{{$select.selected.label|translate}}</ui-select-match>
+                        <ui-select-choices repeat="item in vm.themes| filter: $select.search">
+                          <div ng-bind-html="item.label| translate| highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+            </ba-wizard-step>
+            <ba-wizard-step title="{{'Notification Info'|translate}}" form="vm.NotificationInfoForm">
+              <form name="vm.NotificationInfoForm" novalidate>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error': vm.NotificationInfoForm.notificationType.$invalid && (vm.NotificationInfoForm.notificationType.$dirty || vm.NotificationInfoForm.$submitted)}">
+                         <label for="notificationType">{{'Notification Type'|translate}}</label>
+                      <ui-select ng-model="vm.notificationTypeSelected" title="Choose a Notification Type" ng-required="true" search-enabled="false">
+                        <ui-select-match placeholder="{{'Select Notification Type'|translate}}" name="notificationType">
+                        {{$select.selected.label|translate}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in vm.notificationTypes| filter: $select.search">
+                          <div ng-bind-html="item.label |translate | highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group" ng-class="{'has-error': vm.NotificationInfoForm.clusterML.$invalid && (vm.NotificationInfoForm.clusterML.$dirty || vm.NotificationInfoForm.$submitted)}"
+                        ng-init="vm.contentFilter=0">
+                      <label for="notificationContent">{{'Notification Content'|translate}}</label>
+                      <div class="row">
+                        <div class="col-md-2">
+                          <label class="radio-inline custom-radio nowrap">
+                            <input type="radio" name="" id="inlineRadio1" ng-model="vm.contentFilter" value="0">
+                            <span>{{'Customize'|translate}}</span>
+                          </label>
+                        </div>
+                        <div class="col-md-2">
+                          <label class="radio-inline custom-radio nowrap">
+                            <input type="radio" name="" id="inlineRadio2" ng-model="vm.contentFilter" value="1">
+                            <span>{{'ClusterML'|translate}}</span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12" ng-show="vm.contentFilter==0">
+                    <div class="form-group">
+                        <textarea placeholder="{{'Customize Notification Content(Limit 70)'|translate}}"
+                            class="form-control" ng-model="vm.customizeContent"
+                            maxlength="70"
+                            ng-required="vm.contentFilter==0">
+                        </textarea>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12" ng-show="vm.contentFilter==1">
+                    <div class="form-group">
+                      <ui-select ng-model="vm.clustermlSelected" title="Choose a Cluster Model" ng-required="vm.contentFilter==1">
+                      <ui-select-match placeholder="{{'Select Cluster Model'|translate}}">{{$select.selected.label|translate}}</ui-select-match>
+                        <ui-select-choices repeat="item in vm.clustermls | filter: $select.search">
+                          <div ng-bind-html="item.label | translate | highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+            </ba-wizard-step>
+            <ba-wizard-step title="Finish">
+              <form class="form-horizontal" novalidate>
+                  {{ "Congratulations! You have successfully filled the form!" | translate}} {{ "Please Click" | translate}} "{{ 'Save changes' | translate}}" {{ "Button"| translate}}!
+              </form>
+            </ba-wizard-step>
+          </ba-wizard>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary" ng-click="closeAdd()">{{'Save changes'|translate}}</button>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<uib-pagination
+  total-items="$parent.totalItemCount"
+  items-per-page="$parent.smartTablePageSize"
+  ng-model="$parent.currentPage"
+  ng-change="$parent.pageChanged($parent.currentPage)"
+  max-size="$parent.smartDisplayedPage"
+  class="pagination-sm" boundary-link-numbers="true" boundary-links="true" rotate="false"
+  previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+</uib-pagination>

@@ -1,0 +1,43 @@
+<div class="content-top clearfix">
+  <div class="col-sm-2">
+    <h1 class="al-title">{{ activePageTitle | translate }}</h1>
+  </div>
+
+  <!--ul class="breadcrumb al-breadcrumb">
+    <li>
+      <a href="#/dashboard">Home</a></li>
+    <li>{{ activePageTitle }}</li>
+  </ul-->
+  <div class="col-sm-10">
+      <div class="col-sm-2" style="float:right">
+        <ui-select ng-model="versionSelected" title="Choose a Version" on-select="versionOnSelect($item, $model)">
+          <ui-select-match placeholder="{{'Select Version'|translate}}">
+            {{$select.selected.label|translate}}
+          </ui-select-match>
+          <ui-select-choices repeat="item in versions | filter: $select.search">
+            <div ng-bind-html="item.label | translate| highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div> 
+      <div class="col-sm-2" style="float:right">
+        <ui-select ng-model="platformSelected" title="Choose a Platform" on-select="platformOnSelect($item, $model)">
+          <ui-select-match placeholder="{{'Select Platform'|translate}}">
+            {{$select.selected.label|translate}}
+          </ui-select-match>
+          <ui-select-choices repeat="item in platforms | filter: $select.search">
+            <div ng-bind-html="item.label | translate| highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+      <div class="col-sm-2" style="float:right">
+        <ui-select ng-model="gameSelected" title="Choose a Game" on-select="gameOnSelect($item, $model)">
+          <ui-select-match placeholder="{{'Select Game'|translate}}">
+            {{$select.selected.label|translate}}
+          </ui-select-match>
+          <ui-select-choices repeat="item in games | filter: $select.search">
+            <div ng-bind-html="item.label | translate| highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+  </div>
+</div>

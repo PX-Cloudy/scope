@@ -1,0 +1,28 @@
+<div class="body-bg"></div>
+<main ng-if="$pageFinishedLoading" ng-class="{ 'menu-collapsed': $baSidebarService.isMenuCollapsed() }">
+  <ba-sidebar></ba-sidebar>
+  <page-top></page-top>
+
+  <div class="al-main">
+    <div class="al-content">
+      
+        <content-top></content-top>
+
+        <div ui-view></div>
+    </div>
+  </div>
+
+  <footer class="al-footer clearfix">
+    <div class="al-footer-right">
+      <a ng-href="mailto:arch@shinezone.com">Created By <i class="ion-heart"></i> ShineZone Arch</a>
+    </div>
+    <div class="al-footer-main clearfix">
+      <a ng-href="https://www.google.com/chrome/browser/desktop/index.html?brand=CHBD&gclid=Cj0KEQiAsf_BBRDMpoOHw4aSq4QBEiQAPm7DL9zgecfx3XI_1tCAi7tn7PVHRZrid1oKzM4skSPKFHAaAsvi8P8HAQ" target="_blank">Support World Best Browser <i class="ion-heart"></i> Chrome</a>
+    </div>
+  </footer>
+  <back-top></back-top>
+</main>
+
+<div id="preloader" ng-show="!$pageFinishedLoading">
+  <div></div>
+</div>

@@ -1,0 +1,223 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()" aria-label="Close">
+      <em class="ion-ios-close-empty sn-link-close"></em>
+    </button>
+    <h4 class="modal-title" id="detailModalLabel">{{ "Mission Detail" | translate}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="widgets">
+      <div class="row">
+        <div class="col-md-12">
+          <ba-wizard>
+          <ba-wizard-step title="{{'Basic info' | translate}}" form="vm.basicInfoForm">
+              <form name="vm.basicInfoForm" novalidate>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error': vm.basicInfoForm.missionName.$invalid && (vm.basicInfoForm.missionName.$dirty || vm.basicInfoForm.$submitted)}">
+                      <label for="missionName">{{'Mission Name'| translate}}</label>
+                      <input type="text" class="form-control error-input" id="missionName" name="missionName"
+                          placeholder="Mission Name" ng-model="vm.missionName" required>
+                          <span class="help-block error-block basic-block">{{'Required'| translate}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error': vm.basicInfoForm.game.$invalid && (vm.basicInfoForm.game.$dirty || vm.basicInfoForm.game.$submitted)}">
+                      <label for="game">{{'Game Name'| translate}}</label>
+                      <ui-select ng-model="vm.gameSelected" title="Choose a Game" name="game" ng-required="true" ng-disabled="true">
+                        <ui-select-match placeholder="{{'Select Game'| translate}}">{{$select.selected.label}}</ui-select-match>
+                        <ui-select-choices repeat="item in vm.games | filter: $select.search">
+                          <div ng-bind-html="item.label| highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group has-feedback">
+                      <label for="platform">{{'Platform Name'| translate}}</label>
+                      <ui-select ng-model="vm.platformSelected" title="Choose a Platform" name="platform" ng-required="true" ng-disabled="true">
+                      <ui-select-match placeholder="{{'Select Platform'|translate}}">{{$select.selected.label}}</ui-select-match>
+                        <ui-select-choices repeat="item in vm.platforms | filter: $select.search">
+                          <div ng-bind-html="item.label | highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group has-feedback">
+                      <label for="platform">{{'Version Name'|translate}}</label>
+                      <ui-select ng-model="vm.versionSelected" title="Choose a Version" name="version" ng-required="true" ng-disabled="true">
+                        <ui-select-match placeholder="Select Version">{{$select.selected.label}}</ui-select-match>
+                        <ui-select-choices repeat="item in vm.versions | filter: $select.search">
+                          <div ng-bind-html="item.label | highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error': vm.basicInfoForm.userfilter.$invalid && (vm.basicInfoForm.userfilter.$dirty || vm.basicInfoForm.$submitted)}">
+                      <label>{{'User Filter'| translate}}</label>
+                      <div class="row">
+                        <div class="col-md-2">
+                          <label class="radio-inline custom-radio nowrap">
+                            <input type="radio" name="userfilter" id="inlineRadio1" ng-model="vm.userFilter" value="0">
+                            <span>{{'NO Filter'| translate}}</span>
+                          </label>
+                        </div>
+                        <div class="col-md-2">
+                          <label class="radio-inline custom-radio nowrap">
+                            <input type="radio" name="userfilter" id="inlineRadio2" ng-model="vm.userFilter" value="7">
+                            <span>7 {{'Days' | translate}}</span>
+                          </label>
+                        </div>
+                        <div class="col-md-2">
+                          <label class="radio-inline custom-radio nowrap">
+                            <input type="radio" name="userfilter" id="inlineRadio3" ng-model="vm.userFilter" value="15">
+                            <span>15 {{'Days' | translate}}</span>
+                          </label>
+                        </div>
+                        <div class="col-md-2">
+                          <label class="radio-inline custom-radio nowrap">
+                            <input type="radio" name="userfilter" id="inlineRadio4" ng-model="vm.userFilter" value="30">
+                            <span>30 {{'Days' | translate}}</span>
+                          </label>
+                        </div>
+                        <div class="col-md-1">
+                          <label class="radio-inline custom-radio nowrap">
+                            <input type="radio" name="userfilter" id="inlineRadio5" ng-model="vm.userFilter" value="DEFINE">
+                            <span>{{'Define' | translate}}</span>
+                          </label>
+                        </div>
+                        <div class="col-md-2">
+                          <input type="text" id="defineFilter" ng-model="vm.defineFilter"/>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+            </ba-wizard-step>
+            <ba-wizard-step title="{{'Model Info'| translate}}" form="vm.modelInfoForm">
+              <form name="vm.modelInfoForm" novalidate>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group has-feedback"
+                         ng-class="{'has-error': vm.modelInfoForm.recallML.$invalid && (vm.modelInfoForm.recallML.$dirty || vm.modelInfoForm.$submitted)}">
+                      <label for="">{{'Recall Model'| translate}}</label>
+                      <ui-select ng-model="vm.recallMLSelected" title="Choose a RecallModel" ng-disabled="true">
+                        <ui-select-match placeholder="{{ 'Select Recall Model'| translate}}" name="recallML">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in vm.recallmls | filter: $select.search">
+                          <div ng-bind-html="item.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="">{{ 'Template Name' | translate}}</label>
+                      <ui-select ng-model="vm.templateSelected" title="Choose a Template" ng-disabled="true">
+                      <ui-select-match placeholder="{{ 'Select Template'| translate}}">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in vm.templates | filter: $select.search">
+                          <div ng-bind-html="item.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </ba-wizard-step>
+            <ba-wizard-step title="{{ 'Crontab Info' | translate}}"  form="vm.crontabForm">
+              <form name="vm.crontabForm" novalidate>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group has-feedback">
+                      <label for="">{{ 'Mission Type' | translate}}</label>
+                      <ui-select ng-model="vm.missionTypeSelected" title="Choose a MissionType" ng-disabled="true">
+                      <ui-select-match placeholder="{{ 'Select Template'|translate}}">{{$select.selected.name|translate}}</ui-select-match>
+                        <ui-select-choices repeat="item in vm.missionTypes | filter: $select.search">
+                          <div ng-bind-html="item.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12" ng-show="vm.missionTypeSelected.name=='once'">
+                    <div class="form-group">
+                        <label for="">{{'Once Mission Time Setting'|translate}}</label>
+                          <input type="text" class="form-control" datetimepicker
+                            datetimepicker-options="{icons:{next:'glyphicon glyphicon-arrow-right',previous:'glyphicon glyphicon-arrow-left',up:'glyphicon glyphicon-arrow-up',down:'glyphicon glyphicon-arrow-down'}}"
+                            placeholder="{'Once Mission Time Setting'|translate}}" name="timesetting"
+                            data-date-format="YYYY-MM-DD HH:mm"
+                            ng-model="vm.timesetting">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12" ng-show="vm.missionTypeSelected.name=='loop'">
+                      <label for="">{{'Loop Mission Time Setting'|translate}}</label>
+                      <uib-tabset active="vm.activeTab">
+                        <uib-tab heading="{{'Once Every Hour'|translate}}" ng-click="tabClick('OnceHour')">
+                          <div class="form-group has-feedback" ng-class="{'has-error': vm.crontabForm.minuteHour.$invalid && (vm.crontabForm.minuteHour.$dirty || vm.crontabForm.$submitted)}">
+                            <label for="minuteHour">{{"Set the MINUTE for Mission to EXECUTE"|translate}}</label>
+                            <input type="number" class="form-control" id="minuteHour" name="minuteHour" min="0" max="59" placeholder="minute (0~59)" ng-model="vm.minuteHour">
+                            <span class="help-block error-block basic-block" ng-show="vm.crontabForm.minuteHour.$invalid">
+                                {{"Minute should Between 0 and 59"|translate}}
+                            </span>
+                          </div>
+                        </uib-tab>
+                        <uib-tab heading="{{'Once Every Day'|translate}}" ng-click="tabClick('OnceDay')">
+                          <label for="timeDay">{{'Set the TIME for Mission to EXECUTE'|translate}}</label>
+                          <div name="timeDay" uib-timepicker ng-model="vm.timeDay" hour-step="1" minute-step="15" show-meridian="false"></div>
+                        </uib-tab>
+                        <uib-tab heading="{{'Once Every Week'|translate}}" ng-click="tabClick('OnceWeek')">
+                          <div class="form-group has-feedback" ng-class="{'has-error': vm.crontabForm.dayWeek.$invalid && (vm.crontabForm.dayWeek.$dirty || vm.crontabForm.$submitted)}">
+                            <label for="dayWeek">{{"First Step: Set the DAY of WEEK for Mission to EXECUTE"|translate}}</label>
+                            <input type="number" class="form-control" id="dayWeek" name="dayWeek" min="1" max="7" placeholder="day of week(1~7)" ng-model="vm.dayWeek">
+                            <span class="help-block error-block basic-block" ng-show="vm.crontabForm.dayWeek.$invalid">
+                              {{"Day of Week should Between 1 and 7"|translate}}
+                            </span>
+                          </div>
+                          <div>   
+                            <label for="timeWeek">{{"Second Step: Set the TIME for Mission to EXECUTE"|translate}}</label>
+                            <div uib-timepicker ng-model="vm.timeWeek" hour-step="1" minute-step="15" show-meridian="false"></div>
+                          </div>
+                        </uib-tab>
+                        <uib-tab heading="{{'Once Every Month'|translate}}" ng-click="tabClick('OnceMonth')">
+                          <div class="form-group has-feedback" ng-class="{'has-error': vm.crontabForm.dayMonth.$invalid && (vm.crontabForm.dayMonth.$dirty || vm.crontabForm.$submitted)}">
+                            <label for="dayMonth">{{'First Step: Set the DAY of Month for Mission to EXECUTE'|translate}}</label>
+                            <input type="number" class="form-control" id="dayMonth" name="dayMonth" min="1" max="31" placeholder="day of Month(1~31)" ng-model="vm.dayMonth">
+                            <span class="help-block error-block basic-block" ng-show="vm.crontabForm.dayMonth.$invalid">
+                                {{"Day of Month should Between 1 and 31"|translate}}
+                            </span>
+                          </div>
+                          <div>   
+                            <label for="timeMonth">{{'Second Step: Set the TIME for Mission to EXECUTE'|translate}}</label>
+                            <div uib-timepicker ng-model="vm.timeMonth" hour-step="1" minute-step="15" show-meridian="false"></div>
+                          </div>
+                        </uib-tab>
+                      </uib-tabset>
+                  </div>
+                </div>
+              </form>
+            </ba-wizard-step>
+          </ba-wizard>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-primary" ng-click="$dismiss()">{{"Close"|translate}}</button>
+  </div>
+</div>

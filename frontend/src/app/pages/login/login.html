@@ -1,0 +1,41 @@
+<main class="auth-main" style="margin-top:100px">
+  <div class="auth-block">
+    <h1>{{'Sign in to ShineZone'|translate}}</h1>
+    <a href="#/reg" class="auth-link">{{'New to ShineZone? Sign up!'|translate}}</a>
+
+    <form class="form-horizontal" name="regForm">
+      <div class="form-group" ng-class="{'has-error':!username}">
+        <label for="username" class="col-sm-2 control-label">{{'UserName'|translate}}</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="username"
+          placeholder="{{'UserName'|translate}}" ng-model="username">
+          <span class="help-block error-block basic-block">{{'Required'|translate}}</span>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{'has-error':!password}">
+        <label for="password" class="col-sm-2 control-label">{{'Password'|translate}}</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="password"
+          placeholder="{{'Password'|translate}}" ng-model="password">
+          <span class="help-block error-block basic-block">{{'Required'|translate}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="button" class="btn btn-default btn-auth" ng-click="signIn()">{{'Sign in'|translate}}</button>
+          <!--a href class="forgot-pass">Forgot password?</a-->
+        </div>
+      </div>
+    </form>
+
+    <!--div class="auth-sep"><span><span>or Sign in with one click</span></span></div>
+
+    <div class="al-share-auth">
+      <ul class="al-share clearfix">
+        <li><i class="socicon socicon-facebook" title="Share on Facebook"></i></li>
+        <li><i class="socicon socicon-twitter" title="Share on Twitter"></i></li>
+        <li><i class="socicon socicon-google" title="Share on Google Plus"></i></li>
+      </ul>
+    </div-->
+  </div>
+</main>

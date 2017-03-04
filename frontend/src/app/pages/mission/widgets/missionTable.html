@@ -1,0 +1,71 @@
+<div class="add-row-editable-table" ng-controller="StatusAndTypeCtrl as vm">
+    <button class="btn btn-primary" data-toggle="modal" ng-click="openAdd('app/pages/mission/widgets/addMissionModal.html', 'lg')">
+        {{ 'Add Mission' | translate }}
+    </button>
+    <div class="col-sm-2" style="float:right">
+      <ui-select ng-model="vm.typeSelected" title="Choose a Type" on-select="typeOnSelect($item, $model)">
+        <ui-select-match placeholder="{{'Select Type'|translate}}">
+          {{$select.selected.label|translate}}
+        </ui-select-match>
+        <ui-select-choices repeat="item in missionTypes | filter: $select.search">
+          <div ng-bind-html="item.label | translate| highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
+    </div> 
+    <div class="col-sm-2" style="float:right">
+      <ui-select ng-model="vm.statusSelected" title="Choose a Status" on-select="statusOnSelect($item, $model)">
+        <ui-select-match placeholder="{{'Select Status'|translate}}">
+          {{$select.selected.label|translate}}
+        </ui-select-match>
+        <ui-select-choices repeat="item in missionStatus | filter: $select.search">
+          <div ng-bind-html="item.label | translate| highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
+    </div> 
+</div>
+<table class="table table-bordered" st-safe-src="missions" st-table="displayed">
+  <thead>
+    <tr>
+      <td></td>
+      <td>{{ "ID" | translate }}</td>
+      <td>{{ "Type" | translate }}</td>
+      <td>{{ "Name" | translate }}</td>
+      <td>{{ "Status" | translate }}</td>
+      <td>{{ "Last Succeeded" | translate }}</td>
+      <td>{{ "Executed" | translate }}</td>
+      <td>{{ "Succeeded" | translate }}</td>
+      <td>{{ "Failed" | translate }}</td>
+      <td>{{ "Operations" | translate }}</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="mission in displayed">
+      <td>{{$index}}</td>
+      <td><a ui-sref="dashboard.execution({'missionId': mission.id})">{{ mission.id }}</a></td>
+      <td><button class="status-button btn btn-xs btn-info">{{ mission.typename|translate }}</button></td>
+      <td>{{ mission.name }}</td>
+      <td><button class="status-button btn btn-xs btn-info">{{ mission.status|translate }}</button></td>
+      <td>{{ mission.last_succeeded | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{ mission.executed }}</td>
+      <td>{{ mission.succeeded }}</td>
+      <td>{{ mission.failed }}</td>
+      <td>
+        <div class="buttons">
+        <button class="btn btn-primary editable-table-button btn-xs" data-toggle="modal"
+            ng-click="openEdit('app/pages/mission/widgets/editMissionModal.html', 'lg', mission)"
+            ng-disabled="!mission.editable">{{'Edit'|translate}}</button>
+        <button class="btn btn-primary editable-table-button btn-xs" data-toggle="modal"
+            ng-click="openEdit('app/pages/mission/widgets/detailMissionModal.html', 'lg', mission)">{{'Detail'|translate}}</button>
+        </div>
+
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="10" class="text-center">
+        <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="smartDisplayedPage" st-template="app/pages/mission/widgets/pagination.html"></div>
+      </td>
+    </tr>
+  </tfoot>
+</table>
