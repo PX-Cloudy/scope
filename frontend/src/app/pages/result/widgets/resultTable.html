@@ -1,0 +1,65 @@
+<div class="col-sm-12 add-row-editable-table" ng-controller="StatusAndDayCtrl as vm">
+    <div class="col-sm-2" style="float:right">
+      <ui-select ng-model="vm.daySelected" title="Choose a Type" on-select="dayOnSelect($item, $model)">
+        <ui-select-match placeholder="{{'Select Day Filter'|translate}}">
+          {{$select.selected.label|translate}}
+        </ui-select-match>
+        <ui-select-choices repeat="item in dayFilter | filter: $select.search">
+          <div ng-bind-html="item.label |translate | highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
+    </div> 
+    <div class="col-sm-2" style="float:right">
+      <ui-select ng-model="vm.statusSelected" title="Choose Status" on-select="statusOnSelect($item, $model)">
+        <ui-select-match placeholder="{{'Select Status'|translate}}">
+          {{$select.selected.label|translate}}
+        </ui-select-match>
+        <ui-select-choices repeat="item in resultStatus | filter: $select.search">
+          <div ng-bind-html="item.label |translate| highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
+    </div> 
+</div>
+<table class="table table-bordered" st-safe-src="results" st-table="displayed">
+  <thead>
+    <tr>
+      <td></td>
+      <td>{{"UID"|translate}}</td>
+      <td>{{"GID"|translate}}</td>
+      <td>{{"Data Desc"|translate}}</td>
+      <td>{{"Theme"|translate}}</td>
+      <td>{{"Status"|translate}}</td>
+      <td>{{"Execution Time"|translate}}</td>
+      <td>{{"Day Filter"|translate}}</td>
+      <td>{{"Recall Filter"|translate}}</td>
+      <td>{{"Recall Mark"|translate}}</td>
+      <td>{{"Cluster Filter"|translate}}</td>
+      <td>{{"Cluster Mark"|translate}}</td>
+      <td>{{"Execution ID"|translate}}</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="result in displayed">
+      <td>{{$index}}</td>
+      <td>{{ result.uid }}</td>
+      <td>{{ result.GID }}</td>
+      <td>{{ result.data_desc }}</td>
+      <td>{{ result.theme |translate}}</td>
+      <td><button class="status-button btn btn-xs btn-info">{{result.status|translate}}</button></td>
+      <td>{{ result.execution_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{ result.day_filter|translate }}</td>
+      <td>{{ result.recall_filter|translate }}</td>
+      <td>{{ result.recall_mark }}</td>
+      <td>{{ result.cluster_filter|translate }}</td>
+      <td>{{ result.cluster_mark }}</td>
+      <td>{{ result.execution }}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="13" class="text-center">
+        <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="smartDisplayedPage" st-template="app/pages/result/widgets/pagination.html"></div>
+      </td>
+    </tr>
+  </tfoot>
+</table>

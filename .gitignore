@@ -14,7 +14,7 @@ local_settings.py
 *100w.txt000
 *10w.txt000
 *1000w.txt000
-*Result*
+#*Result*
 *loginData*
 samplesAna.txt
 testSamplesAna.txt
